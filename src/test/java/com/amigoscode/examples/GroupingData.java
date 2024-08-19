@@ -15,6 +15,14 @@ public class GroupingData {
     @Test
     public void simpleGrouping() throws Exception {
         List<Car> cars = MockData.getCars();
+        Map<String, List<Car>> map = cars.stream()
+                .collect(Collectors.groupingBy(Car::getMake));
+
+        map.forEach((s, car) -> {
+            System.out.println("Make " + s);
+            car.forEach(System.out::println);
+            System.out.println("------------");
+        });
     }
 
     @Test
@@ -30,6 +38,13 @@ public class GroupingData {
                 "Alex",
                 "Alex"
         );
+
+        Map<String, Long> longMap = names.stream()
+                .collect(Collectors.groupingBy(
+                        Function.identity(),
+                        Collectors.counting()));
+
+        System.out.println(longMap);
     }
 
 }
